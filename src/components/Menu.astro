@@ -1,0 +1,209 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import pasta from '../assets/images/pasta-wafu.png';
+import salad from '../assets/images/salad-course.png';
+import dessert from '../assets/images/dessert-seasonal.png';
+import unagi from '../assets/images/unagi-ju.png';
+import nabe from '../assets/images/nabe-winter.png';
+import drinks from '../assets/images/sake-wine.png';
+
+const lunchItems = [
+  { src: salad, alt: '季節のサラダ', name: 'サラダ' },
+  { src: pasta, alt: '和風パスタ', name: 'パスタ' },
+  { src: dessert, alt: '季節のデザート', name: 'デザート' },
+];
+
+const dinnerItems = [
+  { src: unagi, alt: 'うな重', name: 'うな重' },
+  { src: nabe, alt: '冬季のお鍋', name: '冬季はお鍋' },
+  { src: drinks, alt: '日本酒とワイン', name: 'お酒' },
+];
+---
+
+<section class="section menu-sec" id="menu">
+  <div class="container--wide">
+    <div class="section__head reveal">
+      <p class="section__en">Course</p>
+      <h2 class="section__ja">お献立</h2>
+      <div class="section__rule"></div>
+      <p class="menu-sec__lead">すべてコース料理。その日の一組のためだけにお仕立てします。</p>
+    </div>
+
+    <div class="courses">
+      <article class="course reveal">
+        <div class="course__hero">
+          <Image src={pasta} alt="和と伊を重ねたパスタ" widths={[640, 960]} sizes="(min-width: 900px) 50vw, 100vw" />
+          <div class="course__label">
+            <span>Lunch</span>
+            <h3>ランチコース</h3>
+          </div>
+        </div>
+        <div class="course__body">
+          <p class="course__price">¥2,000</p>
+          <p class="course__desc">サラダ、パスタ、デザート、ドリンク</p>
+          <ul class="course__items">
+            {lunchItems.map((item) => (
+              <li>
+                <Image src={item.src} alt={item.alt} widths={[240, 360]} sizes="96px" />
+                <span>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+
+      <article class="course reveal">
+        <div class="course__hero">
+          <Image src={unagi} alt="うな重を中心としたディナー" widths={[640, 960]} sizes="(min-width: 900px) 50vw, 100vw" />
+          <div class="course__label">
+            <span>Dinner</span>
+            <h3>ディナーコース</h3>
+          </div>
+        </div>
+        <div class="course__body">
+          <p class="course__price">ご予約時にご案内</p>
+          <p class="course__desc">前菜、うな重（冬季はお鍋）、お酒</p>
+          <ul class="course__items">
+            {dinnerItems.map((item) => (
+              <li>
+                <Image src={item.src} alt={item.alt} widths={[240, 360]} sizes="96px" />
+                <span>{item.name}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <p class="menu-sec__note reveal">
+      <Icon name="lucide:leaf" />
+      仕入れと庭の季節に合わせて、内容を調えます。アレルギーはご予約時にお知らせください。
+    </p>
+  </div>
+</section>
+
+<style lang="scss">
+  .menu-sec {
+    background: var(--cream);
+  }
+
+  .menu-sec__lead {
+    margin-top: 1.2rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.12em;
+    font-size: 0.92rem;
+  }
+
+  .courses {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .course {
+    background: var(--white);
+    overflow: hidden;
+  }
+
+  .course__hero {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+  }
+
+  .course__hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .course__label {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 1.4rem 1.4rem 1.2rem;
+    background: linear-gradient(180deg, transparent 35%, rgba(16, 14, 12, 0.58));
+    color: var(--white);
+  }
+
+  .course__label span {
+    font-family: var(--font-en);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+  }
+
+  .course__label h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    font-size: 1.35rem;
+    margin-top: 0.2rem;
+  }
+
+  .course__body {
+    padding: 1.5rem 1.4rem 1.6rem;
+  }
+
+  .course__price {
+    font-family: var(--font-en);
+    font-size: 1.55rem;
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  .course__desc {
+    margin: 0.45rem 0 1.2rem;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+
+  .course__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .course__items li {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .course__items img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .course__items span {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  .menu-sec__note {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 2rem;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+  }
+
+  .menu-sec__note [data-icon] {
+    color: var(--gold);
+    margin-top: 0.2rem;
+  }
+
+  @media (min-width: 900px) {
+    .courses {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+    }
+
+    .course__body {
+      padding: 1.75rem 1.75rem 1.9rem;
+    }
+  }
+</style>

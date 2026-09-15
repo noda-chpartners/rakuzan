@@ -1,0 +1,70 @@
+---
+import '../styles/global.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '和風イタリアン 茶寮 洛山 | 柏・増尾 一日一組の完全予約制',
+  description = '千葉県柏市増尾。創業2008年、一日一組限定の和風イタリアン。日本庭園を望む茶寮で、ランチとディナーのコース料理をお迎えします。',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+const ogImage = new URL('/ogp.jpg', Astro.site ?? Astro.url);
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Restaurant',
+      name: '和風イタリアン 茶寮 洛山',
+      description,
+      servesCuisine: ['和風イタリアン', 'Japanese', 'Italian'],
+      foundingDate: '2008',
+      telephone: '+81-4-7174-0719',
+      address: {
+        '@type': 'PostalAddress',
+        addressCountry: 'JP',
+        addressRegion: '千葉県',
+        addressLocality: '柏市',
+        streetAddress: '増尾8-21-6',
+      },
+      url: canonical,
+    })} />
+  </head>
+  <body>
+    <slot />
+    <script>
+      import '../scripts/main.ts';
+    </script>
+  </body>
+</html>

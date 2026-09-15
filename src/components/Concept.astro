@@ -1,0 +1,166 @@
+---
+import { Image } from 'astro:assets';
+import diningInterior from '../assets/images/dining-interior.png';
+import clams from '../assets/images/clams.jpg';
+---
+
+<section class="section concept" id="concept">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__en">The Tea House</p>
+      <h2 class="section__ja">茶寮について</h2>
+      <div class="section__rule"></div>
+    </div>
+
+    <div class="concept__grid">
+      <div class="concept__copy reveal">
+        <p class="concept__kicker">一日一組 / 完全予約制</p>
+        <h3>庭を望む、たったひとつの席。</h3>
+        <p>
+          創業2008年。柏・増尾の静かな住宅街に、一日一組だけの茶寮を開いています。
+          和の心とイタリアの技を重ねたコース料理を、日本庭園を眺めながらお召し上がりください。
+        </p>
+        <p>
+          季節の移ろいをそのまま器に映し、ご家族や大切な方との時間をゆるやかにお迎えします。
+          賑わいよりも、余白のある食卓を。
+        </p>
+        <dl class="concept__facts">
+          <div>
+            <dt>Since</dt>
+            <dd>2008</dd>
+          </div>
+          <div>
+            <dt>Seats</dt>
+            <dd>1組 / 日</dd>
+          </div>
+          <div>
+            <dt>Closed</dt>
+            <dd>なし</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="concept__visuals">
+        <div class="concept__photo concept__photo--main reveal">
+          <Image
+            src={diningInterior}
+            alt="庭を望む、一組だけの食卓"
+            widths={[480, 800, 1200]}
+            sizes="(min-width: 768px) 50vw, 100vw"
+          />
+        </div>
+        <div class="concept__photo concept__photo--accent reveal">
+          <Image
+            src={clams}
+            alt="銅鍋に盛られた蛤"
+            widths={[320, 640]}
+            sizes="(min-width: 768px) 240px, 50vw"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style lang="scss">
+  .concept {
+    overflow: hidden;
+  }
+
+  .concept__grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .concept__kicker {
+    font-family: var(--font-serif);
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+  }
+
+  .concept__copy h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    letter-spacing: 0.16em;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+  }
+
+  .concept__copy p + p {
+    margin-top: 1rem;
+  }
+
+  .concept__copy p {
+    color: var(--ink-soft);
+  }
+
+  .concept__facts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .concept__facts dt {
+    font-family: var(--font-en);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .concept__facts dd {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    letter-spacing: 0.08em;
+    margin-top: 0.25rem;
+  }
+
+  .concept__visuals {
+    position: relative;
+    min-height: 22rem;
+  }
+
+  .concept__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .concept__photo--main {
+    aspect-ratio: 16 / 11;
+    overflow: hidden;
+  }
+
+  .concept__photo--accent {
+    width: min(42%, 14rem);
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    margin-top: -3.5rem;
+    margin-left: auto;
+    box-shadow: 0 18px 40px rgba(28, 25, 21, 0.16);
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 900px) {
+    .concept__grid {
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .concept__photo--accent {
+      position: absolute;
+      right: 0;
+      bottom: -1.5rem;
+      margin: 0;
+      width: 13.5rem;
+    }
+  }
+</style>

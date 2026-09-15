@@ -1,0 +1,220 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import gardenSummer from '../assets/images/garden-summer.jpg';
+import gardenAutumn from '../assets/images/garden-autumn.jpg';
+import gardenWinter from '../assets/images/garden-winter.jpg';
+import diningInterior from '../assets/images/dining-interior.png';
+
+const slides = [
+  { src: gardenSummer, alt: '松と石灯籠が佇む、茶寮洛山の日本庭園' },
+  { src: gardenAutumn, alt: '庭を覆う紅葉の落ち葉' },
+  { src: gardenWinter, alt: '雪化粧した茶寮洛山の庭' },
+  { src: diningInterior, alt: '庭を望む、一日一組の食卓' },
+];
+---
+
+<section class="hero" id="top" data-hero>
+  <div class="hero__slides">
+    {slides.map((slide, i) => (
+      <div class:list={['hero__slide', i === 0 && 'is-active']} data-hero-slide>
+        <Image
+          src={slide.src}
+          alt={slide.alt}
+          widths={[720, 1280, 1920]}
+          sizes="100vw"
+          class="hero__image"
+          loading={i === 0 ? 'eager' : 'lazy'}
+          fetchpriority={i === 0 ? 'high' : 'auto'}
+        />
+      </div>
+    ))}
+  </div>
+
+  <div class="hero__veil"></div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow">Since 2008 / Kashiwa Masuo</p>
+    <h1 class="hero__title">
+      <span>一日一組の茶寮</span>
+      <strong>和風イタリアン</strong>
+      <em>茶寮 洛山</em>
+    </h1>
+    <p class="hero__lead">庭とともに巡る、和と伊の食卓</p>
+  </div>
+
+  <div class="hero__dots" data-hero-dots>
+    {slides.map((slide, i) => (
+      <button
+        type="button"
+        class:list={[i === 0 && 'is-active']}
+        data-hero-dot
+        aria-label={`${i + 1}枚目`}
+      ></button>
+    ))}
+  </div>
+
+  <a class="hero__scroll" href="#concept">
+    <span>Scroll</span>
+    <Icon name="lucide:chevron-down" />
+  </a>
+</section>
+
+<style lang="scss">
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 36rem;
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .hero__slides,
+  .hero__slide,
+  .hero__image,
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero__slide {
+    opacity: 0;
+    transition: opacity 1.15s var(--ease);
+  }
+
+  .hero__slide.is-active {
+    opacity: 1;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.06);
+  }
+
+  .hero__slide.is-active .hero__image {
+    animation: kenburns 14s ease-out forwards;
+  }
+
+  .hero__veil {
+    background: linear-gradient(
+      180deg,
+      rgba(16, 14, 12, 0.28) 0%,
+      rgba(16, 14, 12, 0.08) 40%,
+      rgba(16, 14, 12, 0.42) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    padding: 0 1.25rem;
+    text-shadow: 0 2px 24px rgba(16, 14, 12, 0.28);
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-en);
+    font-size: 0.82rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    opacity: 0.86;
+    margin-bottom: 1.4rem;
+  }
+
+  .hero__title {
+    display: grid;
+    gap: 0.7rem;
+    font-weight: 400;
+  }
+
+  .hero__title span {
+    font-size: 0.95rem;
+    letter-spacing: 0.42em;
+  }
+
+  .hero__title strong {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.15rem, 2.4vw, 1.45rem);
+    letter-spacing: 0.46em;
+  }
+
+  .hero__title em {
+    font-style: normal;
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    letter-spacing: 0.22em;
+    font-weight: 600;
+  }
+
+  .hero__lead {
+    margin-top: 1.5rem;
+    font-family: var(--font-serif);
+    letter-spacing: 0.28em;
+    font-size: 0.95rem;
+  }
+
+  .hero__dots {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 2.4rem;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.7rem;
+  }
+
+  .hero__dots button {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: rgba(255, 253, 248, 0.38);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .hero__dots button.is-active {
+    background: var(--white);
+    transform: scale(1.15);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    z-index: 2;
+    right: 1.4rem;
+    bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-en);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+
+  @keyframes kenburns {
+    from {
+      transform: scale(1.06);
+    }
+    to {
+      transform: scale(1.14);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .hero__scroll {
+      right: 2.2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__slide.is-active .hero__image {
+      animation: none;
+    }
+  }
+</style>

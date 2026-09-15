@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import gardenSummer from '../assets/images/garden-summer.jpg';
+import gardenAutumn from '../assets/images/garden-autumn.jpg';
+import gardenWinter from '../assets/images/garden-winter.jpg';
+
+const seasons = [
+  {
+    src: gardenSummer,
+    en: 'Summer',
+    ja: '緑陰',
+    text: '松と石灯籠、飛石の庭。葉音だけが残る午後。',
+  },
+  {
+    src: gardenAutumn,
+    en: 'Autumn',
+    ja: '紅葉',
+    text: '地面を覆う赤。季節が足元まで届く頃。',
+  },
+  {
+    src: gardenWinter,
+    en: 'Winter',
+    ja: '雪庭',
+    text: '雪をまとった松。冬はお鍋の季節です。',
+  },
+];
+---
+
+<section class="section garden" id="garden">
+  <div class="container--wide">
+    <div class="section__head reveal">
+      <p class="section__en">The Garden</p>
+      <h2 class="section__ja">庭の四季</h2>
+      <div class="section__rule"></div>
+    </div>
+
+    <ul class="garden__list">
+      {seasons.map((season) => (
+        <li class="garden__item reveal">
+          <div class="garden__photo">
+            <Image
+              src={season.src}
+              alt={`${season.ja}の庭`}
+              widths={[480, 800, 1200]}
+              sizes="(min-width: 900px) 33vw, 100vw"
+            />
+          </div>
+          <div class="garden__meta">
+            <p class="garden__en">{season.en}</p>
+            <h3>{season.ja}</h3>
+            <p>{season.text}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  .garden__list {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .garden__photo {
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+
+  .garden__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .garden__meta {
+    padding-top: 1rem;
+  }
+
+  .garden__en {
+    font-family: var(--font-en);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-size: 0.8rem;
+  }
+
+  .garden__meta h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    font-size: 1.35rem;
+    margin: 0.3rem 0 0.55rem;
+  }
+
+  .garden__meta p:last-child {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 900px) {
+    .garden__list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+</style>

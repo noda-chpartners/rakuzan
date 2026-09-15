@@ -1,0 +1,232 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const nav = [
+  { href: '#concept', label: '茶寮' },
+  { href: '#menu', label: 'お献立' },
+  { href: '#garden', label: '庭' },
+  { href: '#information', label: '基本情報' },
+  { href: '#access', label: 'アクセス' },
+  { href: '#contact', label: 'ご予約' },
+];
+---
+
+<header class="header" data-header>
+  <a class="header__logo" href="#top">
+    <span class="header__logo-ja">茶寮 洛山</span>
+    <span class="header__logo-en">Rakuzan</span>
+  </a>
+
+  <nav class="header__nav" aria-label="ページ内メニュー">
+    {nav.map((item) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+
+  <a class="header__tel tel" href="tel:0471740719">
+    <Icon name="lucide:phone" />
+    <span>04-7174-0719</span>
+  </a>
+
+  <button
+    class="header__toggle"
+    type="button"
+    data-menu-toggle
+    aria-expanded="false"
+    aria-controls="site-menu"
+  >
+    <span class="sr-only">メニュー</span>
+    <Icon name="lucide:menu" class="icon-open" />
+    <Icon name="lucide:x" class="icon-close" />
+  </button>
+</header>
+
+<div class="menu" id="site-menu" data-menu hidden>
+  <nav class="menu__nav" aria-label="モバイルメニュー">
+    {nav.map((item, i) => (
+      <a href={item.href} data-menu-link>
+        <span class="menu__num">{String(i + 1).padStart(2, '0')}</span>
+        <span>{item.label}</span>
+      </a>
+    ))}
+  </nav>
+  <a class="menu__tel tel" href="tel:0471740719">
+    <Icon name="lucide:phone" />
+    04-7174-0719
+  </a>
+</div>
+
+<style lang="scss">
+  .header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+    padding: 0 1.5rem;
+    color: var(--white);
+    transition: background 0.4s var(--ease), color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+
+  .header.is-scrolled {
+    background: rgba(246, 241, 232, 0.92);
+    color: var(--ink);
+    box-shadow: 0 1px 0 var(--line);
+    backdrop-filter: blur(12px);
+  }
+
+  .header.is-open {
+    color: var(--ink);
+  }
+
+  .header__logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    line-height: 1.2;
+  }
+
+  .header__logo-ja {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    letter-spacing: 0.32em;
+  }
+
+  .header__logo-en {
+    font-family: var(--font-en);
+    font-size: 0.72rem;
+    letter-spacing: 0.36em;
+    text-transform: uppercase;
+    opacity: 0.72;
+  }
+
+  .header__nav {
+    display: none;
+    gap: 1.75rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+  }
+
+  .header__nav a {
+    position: relative;
+  }
+
+  .header__nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.3rem;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s var(--ease);
+  }
+
+  .header__nav a:hover::after {
+    transform: scaleX(1);
+  }
+
+  .header__tel {
+    display: none;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.95rem;
+  }
+
+  .header__toggle {
+    width: 2.5rem;
+    height: 2.5rem;
+    display: grid;
+    place-items: center;
+  }
+
+  .header__toggle [data-icon] {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .header.is-open .icon-open {
+    display: none;
+  }
+
+  .header.is-open .icon-close {
+    display: block;
+  }
+
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 35;
+    background: var(--paper);
+    display: grid;
+    place-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--ease), visibility 0.4s var(--ease);
+  }
+
+  .menu.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .menu__nav {
+    display: grid;
+    gap: 1.4rem;
+    text-align: center;
+  }
+
+  .menu__nav a {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1rem;
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    letter-spacing: 0.28em;
+  }
+
+  .menu__num {
+    font-family: var(--font-en);
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+  }
+
+  .menu__tel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+  }
+
+  @media (min-width: 1024px) {
+    .header {
+      padding: 0 2.25rem;
+    }
+
+    .header__nav {
+      display: flex;
+    }
+
+    .header__tel {
+      display: inline-flex;
+    }
+
+    .header__toggle,
+    .menu {
+      display: none;
+    }
+  }
+</style>

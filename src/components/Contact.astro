@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+import gardenWinter from '../assets/images/garden-winter.jpg';
+---
+
+<section class="section contact" id="contact">
+  <div class="contact__bg">
+    <Image
+      src={gardenWinter}
+      alt=""
+      widths={[720, 1280, 1920]}
+      sizes="100vw"
+    />
+  </div>
+  <div class="container reveal">
+    <p class="section__en">Reservation</p>
+    <h2 class="section__ja">ご予約</h2>
+    <div class="section__rule"></div>
+    <p class="contact__text">
+      一日一組の完全予約制です。お席の確認は、お電話にてお願いいたします。
+    </p>
+    <a class="contact__tel tel" href="tel:0471740719">
+      <Icon name="lucide:phone" />
+      <span>04-7174-0719</span>
+    </a>
+    <p class="contact__note">和風イタリアン 茶寮 洛山</p>
+  </div>
+</section>
+
+<style lang="scss">
+  .contact {
+    position: relative;
+    color: var(--white);
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .contact__bg,
+  .contact__bg img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .contact__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(28, 25, 21, 0.66), rgba(28, 25, 21, 0.72));
+  }
+
+  .contact .container {
+    position: relative;
+    z-index: 1;
+    max-width: 40rem;
+  }
+
+  .contact .section__en,
+  .contact .section__ja {
+    color: var(--white);
+  }
+
+  .contact .section__rule {
+    background: var(--gold-light);
+  }
+
+  .contact__text {
+    margin: 2rem auto 0;
+    letter-spacing: 0.12em;
+    line-height: 2;
+  }
+
+  .contact__tel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+  }
+
+  .contact__tel [data-icon] {
+    width: 0.7em;
+    height: 0.7em;
+  }
+
+  .contact__note {
+    margin-top: 1.1rem;
+    font-family: var(--font-serif);
+    letter-spacing: 0.28em;
+    opacity: 0.78;
+  }
+</style>

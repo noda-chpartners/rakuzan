@@ -1,0 +1,124 @@
+---
+import { Icon } from 'astro-icon/components';
+
+const rows = [
+  {
+    icon: 'lucide:map-pin',
+    label: '住所',
+    value: '千葉県柏市増尾8-21-6',
+  },
+  {
+    icon: 'lucide:train-front',
+    label: 'アクセス',
+    value: '逆井駅・増尾駅から徒歩約18分。逆井駅東口からバス約5分、下車後徒歩約1分。',
+  },
+  {
+    icon: 'lucide:phone',
+    label: '電話',
+    value: '04-7174-0719',
+    href: 'tel:0471740719',
+  },
+  {
+    icon: 'lucide:users',
+    label: '席数',
+    value: '1日1組限定（完全予約制）',
+  },
+  {
+    icon: 'lucide:calendar-days',
+    label: '定休日',
+    value: 'なし',
+  },
+  {
+    icon: 'lucide:clock',
+    label: '創業',
+    value: '2008年',
+  },
+];
+---
+
+<section class="section information" id="information">
+  <div class="container">
+    <div class="section__head reveal">
+      <p class="section__en">Information</p>
+      <h2 class="section__ja">基本情報</h2>
+      <div class="section__rule"></div>
+    </div>
+
+    <dl class="info reveal">
+      {rows.map((row) => (
+        <div class="info__row">
+          <dt>
+            <Icon name={row.icon} />
+            {row.label}
+          </dt>
+          <dd>
+            {row.href ? <a class="tel" href={row.href}>{row.value}</a> : row.value}
+          </dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style lang="scss">
+  .information {
+    background: var(--cream);
+  }
+
+  .info {
+    background: var(--white);
+    padding: 0.4rem 1.4rem;
+  }
+
+  .info__row {
+    display: grid;
+    gap: 0.35rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .info__row:last-child {
+    border-bottom: 0;
+  }
+
+  .info__row dt {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-serif);
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    font-size: 0.9rem;
+  }
+
+  .info__row dt [data-icon] {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .info__row dd {
+    color: var(--ink-soft);
+    padding-left: 1.5rem;
+  }
+
+  .info__row a {
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  @media (min-width: 768px) {
+    .info {
+      padding: 0.6rem 2rem;
+    }
+
+    .info__row {
+      grid-template-columns: 10rem 1fr;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 1.4rem 0;
+    }
+
+    .info__row dd {
+      padding-left: 0;
+    }
+  }
+</style>

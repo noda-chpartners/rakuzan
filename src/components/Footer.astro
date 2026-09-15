@@ -1,0 +1,46 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <a class="footer__logo" href="#top">
+    <span>茶寮 洛山</span>
+    <small>Wafu Italian Rakuzan</small>
+  </a>
+  <p class="footer__copy">© {year} 和風イタリアン 茶寮 洛山</p>
+</footer>
+
+<style lang="scss">
+  .footer {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 2.4rem 1.25rem 2.2rem;
+  }
+
+  .footer__logo {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .footer__logo span {
+    font-family: var(--font-serif);
+    letter-spacing: 0.32em;
+    font-size: 1.05rem;
+  }
+
+  .footer__logo small {
+    font-family: var(--font-en);
+    font-size: 0.75rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  .footer__copy {
+    margin-top: 1.2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    opacity: 0.62;
+  }
+</style>
