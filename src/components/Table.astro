@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import teaService from '../assets/images/811648132.666263.jpg';
+import unagiDish from '../assets/images/811648146.187828.jpg';
+import guinness from '../assets/images/edited_811648109.729122_20260921_105741.jpg';
+
+const scenes = [
+  {
+    src: teaService,
+    class: 'table-sec__item--tea',
+    en: 'Tea',
+    ja: '午後の紅茶',
+    alt: 'ティーコージーと銀器で設えた、午後の紅茶',
+  },
+  {
+    src: unagiDish,
+    class: 'table-sec__item--unagi',
+    en: 'Course',
+    ja: 'うなぎ',
+    alt: 'クレソンを添えた、うなぎの一品',
+  },
+  {
+    src: guinness,
+    class: 'table-sec__item--drink',
+    en: 'Stout',
+    ja: 'ギネス',
+    alt: 'ギネス エクストラスタウト',
+  },
+];
+---
+
+<section class="section table-sec" id="table">
+  <div class="container--wide">
+    <div class="section__head reveal">
+      <p class="section__en">The Table</p>
+      <h2 class="section__ja">食卓</h2>
+      <div class="section__rule"></div>
+      <p class="table-sec__lead">紅茶を点て、一品を盛り、杯を注ぐ。</p>
+    </div>
+
+    <ul class="table-sec__grid">
+      {scenes.map((scene) => (
+        <li class:list={['table-sec__item', 'reveal', scene.class]}>
+          <div class="table-sec__photo">
+            <Image
+              src={scene.src}
+              alt={scene.alt}
+              widths={[480, 800, 1400]}
+              sizes={scene.class.includes('tea')
+                ? '(min-width: 900px) 60vw, 100vw'
+                : '(min-width: 900px) 40vw, 100vw'}
+            />
+          </div>
+          <div class="table-sec__meta">
+            <p class="table-sec__en">{scene.en}</p>
+            <h3>{scene.ja}</h3>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style lang="scss">
+  .table-sec__lead {
+    margin-top: 1.2rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.16em;
+    font-size: 0.92rem;
+  }
+
+  .table-sec__grid {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .table-sec__item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .table-sec__photo {
+    overflow: hidden;
+    background: var(--paper-deep);
+  }
+
+  .table-sec__item--tea .table-sec__photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .table-sec__item--unagi .table-sec__photo,
+  .table-sec__item--drink .table-sec__photo {
+    aspect-ratio: 4 / 3;
+  }
+
+  .table-sec__photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .table-sec__item--tea img {
+    object-position: 38% 28%;
+  }
+
+  .table-sec__item--unagi img {
+    object-position: 50% 50%;
+  }
+
+  .table-sec__item--drink img {
+    object-position: 50% 58%;
+  }
+
+  .table-sec__meta {
+    position: absolute;
+    inset: auto 0 0;
+    padding: 2.2rem 1.15rem 1.05rem;
+    background: linear-gradient(180deg, transparent 10%, rgba(16, 14, 12, 0.55));
+    color: var(--white);
+  }
+
+  .table-sec__en {
+    font-family: var(--font-en);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-size: 0.78rem;
+  }
+
+  .table-sec__meta h3 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    font-size: 1.15rem;
+    margin-top: 0.2rem;
+  }
+
+  @media (min-width: 900px) {
+    .table-sec__grid {
+      grid-template-columns: 1.28fr 1fr;
+      grid-template-areas:
+        'tea unagi'
+        'tea drink';
+      gap: 1.1rem;
+      align-items: stretch;
+    }
+
+    .table-sec__item--tea {
+      grid-area: tea;
+      height: 100%;
+    }
+
+    .table-sec__item--unagi {
+      grid-area: unagi;
+    }
+
+    .table-sec__item--drink {
+      grid-area: drink;
+    }
+
+    .table-sec__item--tea .table-sec__photo {
+      height: 100%;
+      aspect-ratio: auto;
+      min-height: 36rem;
+    }
+  }
+</style>
